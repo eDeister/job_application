@@ -1,0 +1,12 @@
+{
+  "name": "328/job_application",
+  "authors": [
+    {
+      "name": "Ethan Deister",
+      "email": "deister.ethan@student.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
