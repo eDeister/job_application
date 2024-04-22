@@ -5,30 +5,46 @@
         <div class="row bg-light m-3 p-4">
             <h2>Personal Information</h2>
             <hr>
-            <form action="#" method="post">
-                <div class="col-12 col-md-6">
+            <form action="#" method="post" class="row">
+                <div class="col-12 col-md-8">
                     <div class="row">
                         <div class="col">
-
+                            <label for="fname">First Name</label>
+                            <input type="text" class="form-control" name="fname" id="fname" aria-placeholder="Sarah">
                         </div>
                         <div class="col">
-
+                            <label for="lname">Last Name</label>
+                            <input type="text" class="form-control" name="lname" id="lname" aria-placeholder="Smith">
                         </div>
                     </div>
                     <div class="row">
-
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control ms-2" name="email" id="email" aria-placeholder="my_email@gmail.com">
                     </div>
                     <div class="row">
                         <div class="col">
-
+                            <label for="state"></label>
+                            <select class="form-select" name="state" id="state">
+                                <option selected value="{{ @SESSION.default_state }}">{{ @SESSION.default_state }}</option>
+                                <repeat group="{{ @SESSION.states }}" value="{{ @SESSION.states }}">
+                                    <option value="{{ @SESSION.states }}">{{ @SESSION.states }}</option>
+                                </repeat>
+                            </select>
                         </div>
                         <div class="col">
-
+                            <label for="phone">Phone</label>
+                            <input type="number" class="form-control" name="phone" id="phone" aria-placeholder="222-333-4444">
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
-
+                    <div class="row">
+                        <p class="bg-secondary-subtle mt-4 mx-1 p-3 rounded"><b>Note:</b> All information entered is protected by our <b>privacy policy.
+                        </b> Profile information can only be viewed by others with your permission.</p>
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="Next>" class="bg-success text-light border-light mx-1 p-2 rounded">
+                    </div>
                 </div>
             </form>
         </div>
