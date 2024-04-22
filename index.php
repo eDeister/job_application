@@ -20,7 +20,7 @@ $f3->route('GET|POST /info', function ($f3) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //TODO: Validate the data
         //(If data is valid) Reroute to the next form page
-        $f3->reroute('views/experience.html');
+        $f3->reroute('experience');
     } else {
 
         $f3->set('SESSION.default_state', "Washington");
@@ -36,6 +36,20 @@ $f3->route('GET|POST /info', function ($f3) {
 
     $view = new Template();
     echo $view->render('views/personal-info.html');
+});
+
+$f3->route('GET|POST /experience', function($f3) {
+
+    //If the form was submitted...
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //TODO: Validate the data
+        //(If the data is valid) Reroute to the next page
+        $f3->reroute('views/mailing-list.html');
+    } else {
+
+    }
+    $view = new Template();
+    echo $view->render('views/experience.html');
 });
 
 //Run fat free
