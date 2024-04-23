@@ -13,6 +13,10 @@ $f3->route('GET /', function () {
     $view = new Template();
     echo $view->render('views/home.html');
 });
+$f3->route('GET /home', function () {
+    $view = new Template();
+    echo $view->render('views/home.html');
+});
 
 $f3->route('GET|POST /info', function ($f3) {
 
@@ -44,12 +48,32 @@ $f3->route('GET|POST /experience', function($f3) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //TODO: Validate the data
         //(If the data is valid) Reroute to the next page
-        $f3->reroute('views/mailing-list.html');
+        $f3->reroute('mail');
     } else {
 
     }
     $view = new Template();
     echo $view->render('views/experience.html');
+});
+
+$f3->route('GET|POST /mail', function($f3) {
+
+    //If the form was submitted...
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //TODO: Validate the data
+        //(If the data is valid) Reroute to the next page
+        $f3->reroute('summary');
+    } else {
+
+    }
+    $view = new Template();
+    echo $view->render('views/mailing-list.html');
+});
+
+$f3->route('GET /summary', function($f3) {
+
+    $view = new Template();
+    echo $view->render('views/summary.html');
 });
 
 //Run fat free

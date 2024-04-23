@@ -25,6 +25,7 @@
                         <div class="col">
                             <label for="state" class="form-label"><strong>State</strong></label>
                             <select class="form-select" name="state" id="state">
+                                <!--Using templating even though we haven't covered it yet, just to save time-->
                                 <option selected value="{{ @SESSION.default_state }}">{{ @SESSION.default_state }}</option>
                                 <repeat group="{{ @SESSION.states }}" value="{{ @SESSION.states }}">
                                     <option value="{{ @SESSION.states }}">{{ @SESSION.states }}</option>
