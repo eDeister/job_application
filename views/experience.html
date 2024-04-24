@@ -1,3 +1,9 @@
+<!--
+  Author: Ethan Deister
+  Filename: experience.html
+  File desc: Contains a form for a user to enter information about their job experience.
+  Assignment: Job App. Part 2
+  -->
 <include href="views/header.html"></include>
 
     <!--Main page content-->
@@ -8,7 +14,7 @@
             <form action="#" method="post" class="row">
                 <div class="col-12 col-md-8">
                     <label for="bio" class="form-label"><strong>Biography</strong></label>
-                    <input type="text" class="form-control" name="bio" id="bio">
+                    <textarea class="form-control" name="bio" id="bio"></textarea>
                 </div>
                 <div class="col-12 col-md-4">
                     <label for="github" class="form-label mt-4 mt-md-0"><strong>GitHub Link</strong></label>
@@ -16,30 +22,30 @@
                     <label class="form-label"><strong>Years Experience</strong></label>
                     <br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="entry" id="entry" value="0-2" checked>
+                        <input class="form-check-input" type="radio" name="years" id="entry" value="0-2" checked>
                         <label class="form-check-label" for="entry">0-2</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="junior" id="junior" value="2-4">
+                        <input class="form-check-input" type="radio" name="years" id="junior" value="2-4">
                         <label class="form-check-label" for="junior">2-4</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="senior" id="senior" value="4+">
+                        <input class="form-check-input" type="radio" name="years" id="senior" value="4+">
                         <label class="form-check-label" for="senior">4+</label>
                     </div>
                     <br>
                     <label class="form-label"><strong>Willing To Relocate</strong></label>
                     <br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="reloc-yes" id="reloc-yes" value="yes" checked>
+                        <input class="form-check-input" type="radio" name="reloc" id="reloc-yes" value="yes" checked>
                         <label class="form-check-label" for="reloc-yes">Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="reloc-no" id="reloc-no" value="no">
+                        <input class="form-check-input" type="radio" name="reloc" id="reloc-no" value="no">
                         <label class="form-check-label" for="reloc-no">No</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="reloc-maybe" id="reloc-maybe" value="maybe">
+                        <input class="form-check-input" type="radio" name="reloc" id="reloc-maybe" value="maybe">
                         <label class="form-check-label" for="reloc-maybe">Maybe</label>
                     </div>
                     <br>

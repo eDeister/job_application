@@ -1,4 +1,11 @@
 <?php
+/*
+ * Author: Ethan Deister
+ * Filename: index.php
+ * File desc: A controller page which handles routing, business logic, etc. for the job app. site
+ * Assignment: Job App. Part 2
+ */
+
 //Set error reporting to true, require autoload, start session
 ini_set('display_errors',1);
 error_reporting(E_ALL);
@@ -22,8 +29,22 @@ $f3->route('GET|POST /info', function ($f3) {
 
     //If the form was submitted...
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //Get data
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
+        $email = $_POST['email'];
+        $state = $_POST['state'];
+        $phone = $_POST['phone'];
+
         //TODO: Validate the data
-        //(If data is valid) Reroute to the next form page
+        //Add data to the session
+        $f3->set('SESSION.fname',$fname);
+        $f3->set('SESSION.lname',$lname);
+        $f3->set('SESSION.email',$email);
+        $f3->set('SESSION.state',$state);
+        $f3->set('SESSION.phone',$phone);
+
+        //Reroute to the next form page
         $f3->reroute('experience');
     } else {
 
@@ -46,8 +67,19 @@ $f3->route('GET|POST /experience', function($f3) {
 
     //If the form was submitted...
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //Get data
+        $bio = $_POST['bio'];
+        $github = $_POST['github'];
+        $years = $_POST['years'];
+        $reloc = $_POST['reloc'];
+
         //TODO: Validate the data
-        //(If the data is valid) Reroute to the next page
+        //Add data to the session
+        $f3->set('SESSION.bio',$bio);
+        $f3->set('SESSION.github',$github);
+        $f3->set('SESSION.years',$years);
+        $f3->set('SESSION.reloc',$reloc);
+        //Reroute to the next page
         $f3->reroute('mail');
     } else {
 
@@ -60,7 +92,15 @@ $f3->route('GET|POST /mail', function($f3) {
 
     //If the form was submitted...
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //Get data
+        $jobs = $_POST['jobs'];
+        $verticals = $_POST['verticals'];
+
         //TODO: Validate the data
+        //Add data to the session
+        $f3->set('SESSION.jobs',$jobs);
+        $f3->set('SESSION.verticals',$verticals);
+
         //(If the data is valid) Reroute to the next page
         $f3->reroute('summary');
     } else {
@@ -71,7 +111,6 @@ $f3->route('GET|POST /mail', function($f3) {
 });
 
 $f3->route('GET /summary', function($f3) {
-
     $view = new Template();
     echo $view->render('views/summary.html');
 });

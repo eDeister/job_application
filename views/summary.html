@@ -1,4 +1,56 @@
+<!--
+  Author: Ethan Deister
+  Filename: summary.html
+  File desc: Renders a short summary of the user's job application info.
+  Assignment: Job App. Part 1
+  -->
 <include href="views/header.html"></include>
-
+    <!--Main page content-->
+    <div class="container-fluid bg-light">
+        <div class="row m-3 p-4">
+            <div class="col-6">
+                <table class="table table-light border">
+                    <tbody>
+                        <tr>
+                            <td>Name: {{ @SESSION.fname }} {{ @SESSION.lname }}</td>
+                        </tr>
+                        <tr>
+                            <td>Email: {{ @SESSION.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>State: {{ @SESSION.state }}</td>
+                        </tr>
+                        <tr>
+                            <td>Phone: {{ @SESSION.phone }}</td>
+                        </tr>
+                        <tr>
+                            <td>GitHub link: {{ @SESSION.github }}</td>
+                        </tr>
+                        <tr>
+                            <td>Experience: {{ @SESSION.years }}</td>
+                        </tr>
+                        <tr>
+                            <td>Willing to relocate: {{ @SESSION.reloc }}</td>
+                        </tr>
+                        <tr>
+                            <td>Mailing lists:
+                                <repeat group="{{ @SESSION.jobs }}" value="{{ @job }}">{{ @job }}, </repeat>
+                                <repeat group="{{ @SESSION.verticals }}" value="{{ @vertical }}">{{ @vertical }}, </repeat>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6 text-center">
+                <img src="images/profile.png" alt="Profile art" class="image-fluid w-50">
+            </div>
+        </div>
+        <div class="row justify-content-end m-4 p-3">
+            <div class="col-6">
+                <h3>Summary</h3>
+                <p>{{ @SESSION.bio }}</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

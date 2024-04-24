@@ -1,3 +1,9 @@
+<!--
+  Author: Ethan Deister
+  Filename: mailing-list.html
+  File desc: Gathers preferences from the user on what mailing lists they want to be added to
+  Assignment: Job App. Part 1
+  -->
 <include href="views/header.html"></include>
 
     <div class="container-fluid bg-light m-3 p-4">
@@ -7,66 +13,66 @@
             <div class="row">
                 <label class="form-label"><strong>Software Development Jobs</strong></label><br>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="JavaScript" id="js" value="js">
+                    <input class="form-check-input" type="checkbox" name="jobs[]" id="js" value="JavaScript">
                     <label class="form-check-label" for="js">JavaScript</label>
                 </div>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="php" id="php" value="php">
+                    <input class="form-check-input" type="checkbox" name="jobs[]" id="php" value="PHP">
                     <label class="form-check-label" for="php">PHP</label>
                 </div>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="java" id="java" value="java">
+                    <input class="form-check-input" type="checkbox" name="jobs[]" id="java" value="Java">
                     <label class="form-check-label" for="java">Java</label>
                 </div>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="py" id="py" value="py">
+                    <input class="form-check-input" type="checkbox" name="jobs[]" id="py" value="Python">
                     <label class="form-check-label" for="py">Python</label>
                 </div>
             </div>
             <div class="row">
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="html" id="html" value="html">
+                    <input class="form-check-input" type="checkbox" name="jobs[]" id="html" value="HTML">
                     <label class="form-check-label" for="html">HTML</label>
                 </div>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="css" id="css" value="css">
+                    <input class="form-check-input" type="checkbox" name="jobs[]" id="css" value="CSS">
                     <label class="form-check-label" for="css">CSS</label>
                 </div>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="react" id="react" value="react">
+                    <input class="form-check-input" type="checkbox" name="jobs[]" id="react" value="ReactJS">
                     <label class="form-check-label" for="react">ReactJS</label>
                 </div>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="node" id="node" value="node">
+                    <input class="form-check-input" type="checkbox" name="jobs[]" id="node" value="NodeJS">
                     <label class="form-check-label" for="node">NodeJS</label>
                 </div>
             </div>
             <div class="row">
                 <label class="form-label"><strong>Industry Verticals</strong></label><br>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="saas" id="saas" value="saas">
+                    <input class="form-check-input" type="checkbox" name="verticals[]" id="saas" value="SaaS">
                     <label class="form-check-label" for="saas">SaaS</label>
                 </div>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="health" id="health" value="health">
+                    <input class="form-check-input" type="checkbox" name="verticals[]" id="health" value="Health Tech">
                     <label class="form-check-label" for="health">Health tech</label>
                 </div>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="ag" id="ag" value="ag">
+                    <input class="form-check-input" type="checkbox" name="verticals[]" id="ag" value="Ag Tech">
                     <label class="form-check-label" for="ag">Ag tech</label>
                 </div>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="hr" id="hr" value="hr">
+                    <input class="form-check-input" type="checkbox" name="verticals[]" id="hr" value="HR Tech">
                     <label class="form-check-label" for="hr">HR tech</label>
                 </div>
             </div>
             <div class="row">
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="indus" id="indus" value="indus">
+                    <input class="form-check-input" type="checkbox" name="verticals[]" id="indus" value="Industry Tech">
                     <label class="form-check-label" for="indus">Industry tech</label>
                 </div>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="cyber" id="cyber" value="cyber">
+                    <input class="form-check-input" type="checkbox" name="verticals[]" id="cyber" value="Cybersecurity">
                     <label class="form-check-label" for="cyber">Cybersecurity</label>
                 </div>
             </div>
