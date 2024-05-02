@@ -87,6 +87,17 @@ $f3->route('GET|POST /info', function ($f3) {
 });
 
 $f3->route('GET|POST /experience', function($f3) {
+    //Set session data
+    $f3->set('SESSION.expData', array(
+        "entry" => "0-2",
+        "junior" => "2-4",
+        "senior" => "4+"
+    ));
+    $f3->set('SESSION.relocData', array(
+        "reloc-yes" => "Yes",
+        "reloc-no" => "No",
+        "reloc-maybe" => "Maybe"
+    ));
 
     //If the form was submitted...
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
