@@ -22,8 +22,6 @@ function validExperience($exp): bool
 function validPhone($phone): bool
 {
     //A rudimentary phone number validator. Returns true if the input is 10 characters long and numerical.
-    //Will be updated later to account for "1+(253)-123-4567" format. This would likely be accomplished with
-    // bootstrap's input groups rather than PHP.
     return (strlen($phone) == 10 && preg_match('/^[0-9]+$/',$phone));
 }
 

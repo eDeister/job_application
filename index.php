@@ -67,7 +67,7 @@ $f3->route('GET|POST /info', function ($f3) {
         //Otherwise...
         } else {
             $errors = array();
-            //Set errors
+            //Set appropriate errors
             if(!$validName) {
                 $errors[] = 'name';
             }
@@ -79,9 +79,8 @@ $f3->route('GET|POST /info', function ($f3) {
             }
             $f3->set('SESSION.errors', $errors);
         }
-
     }
-
+    //Render the page
     $view = new Template();
     echo $view->render('views/personal-info.html');
 });
@@ -93,20 +92,36 @@ $f3->route('GET|POST /experience', function($f3) {
         //Get data
         $bio = $_POST['bio'];
         $github = $_POST['github'];
-        $years = $_POST['years'];
+        $exp = $_POST['years'];
         $reloc = $_POST['reloc'];
 
-        //TODO: Validate the data
-        //Add data to the session
-        $f3->set('SESSION.bio',$bio);
-        $f3->set('SESSION.github',$github);
-        $f3->set('SESSION.years',$years);
-        $f3->set('SESSION.reloc',$reloc);
-        //Reroute to the next page
-        $f3->reroute('mail');
-    } else {
+        //Validate data
+        $validGithub = validGithub($github);
+        $validExperience = validExperience($exp);
 
+        //If data is valid...
+        if ($validGithub && $validExperience) {
+            //Add data to the session
+            $f3->set('SESSION.bio', $bio);
+            $f3->set('SESSION.github', $github);
+            $f3->set('SESSION.years', $exp);
+            $f3->set('SESSION.reloc', $reloc);
+            //Reroute to the next page
+            $f3->reroute('mail');
+        //Otherwise
+        } else {
+            $errors = array();
+            //Set appropriate errors
+            if (!$validGithub) {
+                $errors[] = 'github';
+            }
+            if (!$validExperience) {
+                $errors[] = 'experience';
+            }
+            $f3->set('SESSION.errors', $errors);
+        }
     }
+    //Render the page
     $view = new Template();
     echo $view->render('views/experience.html');
 });
