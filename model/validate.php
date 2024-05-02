@@ -3,7 +3,7 @@
 function validName($name): bool
 {
     //Use PHP regex to find if any characters are non-alphabetical
-    return preg_match('/&[a-z]+$/i', $name);
+    return preg_match('/^[a-z]+$/i', $name);
 }
 
 function validGithub($github): bool

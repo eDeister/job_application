@@ -66,6 +66,7 @@ $f3->route('GET|POST /info', function ($f3) {
             $f3->reroute('experience');
         //Otherwise...
         } else {
+            $f3->set('SESSION.errors',null);
             $errors = array();
             //Set appropriate errors
             if(!$validName) {
@@ -110,6 +111,7 @@ $f3->route('GET|POST /experience', function($f3) {
             $f3->reroute('mail');
         //Otherwise
         } else {
+            $f3->set('SESSION.errors',null);
             $errors = array();
             //Set appropriate errors
             if (!$validGithub) {
