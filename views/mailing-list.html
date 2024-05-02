@@ -9,73 +9,41 @@
     <div class="container-fluid bg-light m-3 p-4">
         <h2>Job Openings Mailing Lists</h2>
         <hr>
+        <label class="form-label"><strong>Software Development Jobs</strong></label><br>
         <form action="#" method="post" class="row grid gap-2 p-2">
-            <div class="row">
-                <label class="form-label"><strong>Software Development Jobs</strong></label><br>
+            <repeat group="{{ @SESSION.jobs }}" key="{{ @jobID }}" value="{{ @jobValue }}" counter="{{ @ctr }}">
+                <check if="{{ @ctr % 4 == 1}}">
+                    <true>
+                        <div class="row">
+                    </true>
+                </check>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="jobs[]" id="js" value="JavaScript">
-                    <label class="form-check-label" for="js">JavaScript</label>
+                    <input class="form-check-input" type="checkbox" name="jobs[]" id="{{ @jobID }}" value="{{ @jobValue }}">
+                    <label class="form-check-label" for="{{ @jobID }}">{{ @jobValue }}</label>
                 </div>
+                <check if="{{ @ctr % 4 == 0}}">
+                    <true>
+                        </div>
+                    </true>
+                </check>
+            </repeat>
+            <label class="form-label"><strong>Industry Verticals</strong></label><br>
+            <repeat group="{{ @SESSION.verticals }}" key="{{ @vertID }}" value="{{ @vertValue }}" counter="{{ @ctr }}">
+                <check if="{{ @ctr % 4 == 1}}">
+                    <true>
+                        <div class="row">
+                    </true>
+                </check>
                 <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="jobs[]" id="php" value="PHP">
-                    <label class="form-check-label" for="php">PHP</label>
+                    <input class="form-check-input" type="checkbox" name="jobs[]" id="{{ @vertID }}" value="{{ @vertValue }}">
+                    <label class="form-check-label" for="{{ @vertID }}">{{ @vertValue }}</label>
                 </div>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="jobs[]" id="java" value="Java">
-                    <label class="form-check-label" for="java">Java</label>
-                </div>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="jobs[]" id="py" value="Python">
-                    <label class="form-check-label" for="py">Python</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="jobs[]" id="html" value="HTML">
-                    <label class="form-check-label" for="html">HTML</label>
-                </div>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="jobs[]" id="css" value="CSS">
-                    <label class="form-check-label" for="css">CSS</label>
-                </div>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="jobs[]" id="react" value="ReactJS">
-                    <label class="form-check-label" for="react">ReactJS</label>
-                </div>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="jobs[]" id="node" value="NodeJS">
-                    <label class="form-check-label" for="node">NodeJS</label>
-                </div>
-            </div>
-            <div class="row">
-                <label class="form-label"><strong>Industry Verticals</strong></label><br>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="verticals[]" id="saas" value="SaaS">
-                    <label class="form-check-label" for="saas">SaaS</label>
-                </div>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="verticals[]" id="health" value="Health Tech">
-                    <label class="form-check-label" for="health">Health tech</label>
-                </div>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="verticals[]" id="ag" value="Ag Tech">
-                    <label class="form-check-label" for="ag">Ag tech</label>
-                </div>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="verticals[]" id="hr" value="HR Tech">
-                    <label class="form-check-label" for="hr">HR tech</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="verticals[]" id="indus" value="Industry Tech">
-                    <label class="form-check-label" for="indus">Industry tech</label>
-                </div>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="verticals[]" id="cyber" value="Cybersecurity">
-                    <label class="form-check-label" for="cyber">Cybersecurity</label>
-                </div>
-            </div>
+                <check if="{{ @ctr % 4 == 0  || @ctr == sizeof(@SESSION.verticals) }}">
+                    <true>
+                        </div>
+                    </true>
+                </check>
+            </repeat>
             <div class="text-end">
                 <input type="submit" value="Next>" class="bg-success text-light border-light w-25 rounded">
             </div>

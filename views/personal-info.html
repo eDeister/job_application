@@ -16,39 +16,60 @@
                     <div class="row">
                         <div class="col">
                             <label for="fname" class="form-label"><strong>First Name</strong></label>
-                            <check if="{{ !in_array('name',@SESSION.errors) }}">
+                            <check if="{{ !empty(@SESSION.errors) }}">
                                 <true>
-                                    <input type="text" class="form-control" name="fname" id="fname" placeholder="Sarah" required>
+                                    <check if="{{ !in_array('name',@SESSION.errors) }}">
+                                        <true>
+                                            <input type="text" class="form-control is-valid" name="fname" id="fname" placeholder="Sarah" required>
+                                        </true>
+                                        <false>
+
+                                            <input type="text" class="form-control is-invalid" name="fname" id="fname" placeholder="Sarah" required>
+                                            <div class="invalid-feedback">Please enter a valid name.</div>
+                                        </false>
+                                    </check>
                                 </true>
                                 <false>
-
-                                    <input type="text" class="form-control is-invalid" name="fname" id="fname" placeholder="Sarah" required>
-                                    <div class="invalid-feedback">Please enter a valid name.</div>
+                                    <input type="text" class="form-control" name="fname" id="fname" placeholder="Sarah" required>
                                 </false>
                             </check>
                         </div>
                         <div class="col">
                             <label for="lname" class="form-label"><strong>Last Name</strong></label>
-                            <check if="{{ !in_array('name',@SESSION.errors) }}">
+                            <check if="{{ !empty(@SESSION.errors) }}">
                                 <true>
-                                    <input type="text" class="form-control" name="lname" id="lname" placeholder="Smith" required>
+                                    <check if="{{ !in_array('name',@SESSION.errors) }}">
+                                        <true>
+                                            <input type="text" class="form-control is-valid" name="lname" id="lname" placeholder="Smith" required>
+                                        </true>
+                                        <false>
+                                            <input type="text" class="form-control is-invalid" name="lname" id="lname" placeholder="Smith" required>
+                                            <div class="invalid-feedback">Please enter a valid name.</div>
+                                        </false>
+                                    </check>
                                 </true>
                                 <false>
-                                    <input type="text" class="form-control is-invalid" name="lname" id="lname" placeholder="Smith" required>
-                                    <div class="invalid-feedback">Please enter a valid name.</div>
+                                    <input type="text" class="form-control" name="lname" id="lname" placeholder="Smith" required>
                                 </false>
                             </check>
                         </div>
                     </div>
                     <div class="row">
                         <label for="email" class="form-label"><strong>Email</strong></label>
-                        <check if="{{ !in_array('email',@SESSION.errors) }}">
+                        <check if="{{ !empty(@SESSION.errors) }}">
                             <true>
-                                <input type="email" class="form-control ms-2" name="email" id="email" placeholder="my_email@gmail.com" required>
+                                <check if="{{ !in_array('email',@SESSION.errors) }}">
+                                    <true>
+                                        <input type="email" class="form-control ms-2 is-valid" name="email" id="email" placeholder="my_email@gmail.com" required>
+                                    </true>
+                                    <false>
+                                        <input type="email" class="form-control ms-2 is-invalid" name="email" id="email" placeholder="my_email@gmail.com" required>
+                                        <div class="invalid-feedback">Please enter a valid email.</div>
+                                    </false>
+                                </check>
                             </true>
                             <false>
-                                <input type="email" class="form-control ms-2 is-invalid" name="email" id="email" placeholder="my_email@gmail.com" required>
-                                <div class="invalid-feedback">Please enter a valid email.</div>
+                                <input type="email" class="form-control ms-2" name="email" id="email" placeholder="my_email@gmail.com" required>
                             </false>
                         </check>
                     </div>
@@ -65,13 +86,20 @@
                         </div>
                         <div class="col">
                             <label for="phone" class="form-label"><strong>Phone</strong></label>
-                            <check if="{{ !in_array('phone',@SESSION.errors) }}">
+                            <check if="{{ !empty(@SESSION.errors) }}">
                                 <true>
-                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="222-333-4444" required>
+                                    <check if="{{ !in_array('phone',@SESSION.errors) }}">
+                                        <true>
+                                            <input type="text" class="form-control is-valid" name="phone" id="phone" placeholder="222-333-4444" required>
+                                        </true>
+                                        <false>
+                                            <input type="text" class="form-control is-invalid" name="phone" id="phone" placeholder="222-333-4444" required>
+                                            <div class="invalid-feedback">Please enter a valid phone number.</div>
+                                        </false>
+                                    </check>
                                 </true>
                                 <false>
-                                    <input type="text" class="form-control is-invalid" name="phone" id="phone" placeholder="222-333-4444" required>
-                                    <div class="invalid-feedback">Please enter a valid phone number.</div>
+                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="222-333-4444" required>
                                 </false>
                             </check>
                         </div>

@@ -130,6 +130,24 @@ $f3->route('GET|POST /experience', function($f3) {
 
 $f3->route('GET|POST /mail', function($f3) {
 
+    $f3->set('SESSION.jobs',array(
+        "js" => "JavaScript",
+        "php" => "PHP",
+        "java" => "Java",
+        "py" => "Python",
+        "html" => "HTML",
+        "css" => "CSS",
+        "react" => "ReactJS",
+        "node" => "NodeJS"
+    ));
+    $f3->set('SESSION.verticals',array(
+        "saas" => "SaaS",
+        "health" => "Health Tech",
+        "ag" => "Ag Tech",
+        "hr" => "HR Tech",
+        "indus" => "Industry Tech",
+        "cyber" => "Cybersecurity"
+    ));
     //If the form was submitted...
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //Get data
