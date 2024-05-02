@@ -6,10 +6,11 @@
  * Assignment: Job App. Part 2
  */
 
-//Set error reporting to true, require autoload, start session
+//Set error reporting to true, require autoload & validate.php, start session
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 require_once('vendor/autoload.php');
+require_once('model/validate.php');
 session_start();
 
 //Instantiate the Base class
@@ -27,6 +28,17 @@ $f3->route('GET /home', function () {
 
 $f3->route('GET|POST /info', function ($f3) {
 
+    //Set states array for dropdown option
+    $f3->set('SESSION.default_state', "Washington");
+    $f3->set('SESSION.states', array("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+        "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
+        "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
+        "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+        "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
+        "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
+        "Utah", "Vermont", "Virginia", "West Virginia", "Wisconsin", "Wyoming"
+    ));
+
     //If the form was submitted...
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //Get data
@@ -36,27 +48,38 @@ $f3->route('GET|POST /info', function ($f3) {
         $state = $_POST['state'];
         $phone = $_POST['phone'];
 
-        //TODO: Validate the data
-        //Add data to the session
-        $f3->set('SESSION.fname',$fname);
-        $f3->set('SESSION.lname',$lname);
-        $f3->set('SESSION.email',$email);
-        $f3->set('SESSION.state',$state);
-        $f3->set('SESSION.phone',$phone);
+        //Validate data
+        $validName = validName($fname) && validName($lname);
+        $validEmail = validEmail($email);
+        $validPhone = validPhone($phone);
 
-        //Reroute to the next form page
-        $f3->reroute('experience');
-    } else {
+        //If data valid...
+        if ($validName && $validEmail && $validPhone) {
+            //Add data to the session
+            $f3->set('SESSION.fname',$fname);
+            $f3->set('SESSION.lname',$lname);
+            $f3->set('SESSION.email',$email);
+            $f3->set('SESSION.state',$state);
+            $f3->set('SESSION.phone',$phone);
 
-        $f3->set('SESSION.default_state', "Washington");
-        $f3->set('SESSION.states', array("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
-            "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
-            "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-            "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
-            "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
-            "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
-            "Utah", "Vermont", "Virginia", "West Virginia", "Wisconsin", "Wyoming"
-        ));
+            //Reroute to the next form page
+            $f3->reroute('experience');
+        //Otherwise...
+        } else {
+            $errors = array();
+            //Set errors
+            if(!$validName) {
+                $errors[] = 'name';
+            }
+            if (!$validEmail) {
+                $errors[] = 'email';
+            }
+            if (!$validPhone) {
+                $errors[] = 'phone';
+            }
+            $f3->set('SESSION.errors', $errors);
+        }
+
     }
 
     $view = new Template();
