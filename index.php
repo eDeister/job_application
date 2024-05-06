@@ -165,15 +165,28 @@ $f3->route('GET|POST /mail', function($f3) {
         $jobs = $_POST['jobs'];
         $verticals = $_POST['verticals'];
 
-        //TODO: Validate the data
-        //Add data to the session
-        $f3->set('SESSION.jobs',$jobs);
-        $f3->set('SESSION.verticals',$verticals);
+        //Validate the data, but only if jobs were selected
+        $invalidJobs = array();
+        if($jobs != null) {
+            $jobKeys = array_values($jobs);
+            foreach ($jobKeys as $job) {
+                if(!validJob($job)) {
+                    $invalidJobs[] = $job;
+                }
+            }
+        }
+        //If there are no errors...
+        if(empty($invalidJobs)) {
+            //Add data to the session
+            $f3->set('SESSION.jobs',$jobs);
+            $f3->set('SESSION.verticals',$verticals);
 
-        //(If the data is valid) Reroute to the next page
-        $f3->reroute('summary');
-    } else {
-
+            //(If the data is valid) Reroute to the next page
+            $f3->reroute('summary');
+        } else {
+            $f3->set('SESSION.jobs',$jobs);
+            $f3->set('SESSION.errors',$invalidJobs);
+        }
     }
     $view = new Template();
     echo $view->render('views/mailing-list.html');

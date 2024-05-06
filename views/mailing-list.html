@@ -17,10 +17,30 @@
                         <div class="row">
                     </true>
                 </check>
-                <div class="form-check col-3">
-                    <input class="form-check-input" type="checkbox" name="jobs[]" id="{{ @jobID }}" value="{{ @jobValue }}">
-                    <label class="form-check-label" for="{{ @jobID }}">{{ @jobValue }}</label>
-                </div>
+                <check if="{{ !empty(@SESSION.errors) }}">
+                    <true>
+                        <check if="{{ in_array(@jobValue,@SESSION.errors) }}">
+                            <true>
+                                <div class="form-check col-3">
+                                    <input class="form-check-input is-invalid" type="checkbox" name="jobs[]" id="{{ @jobID }}" value="{{ @jobValue }}">
+                                    <label class="form-check-label" for="{{ @jobID }}">{{ @jobValue }}</label>
+                                </div>
+                            </true>
+                            <false>
+                                <div class="form-check col-3">
+                                    <input class="form-check-input is-valid" type="checkbox" name="jobs[]" id="{{ @jobID }}" value="{{ @jobValue }}">
+                                    <label class="form-check-label" for="{{ @jobID }}">{{ @jobValue }}</label>
+                                </div>
+                            </false>
+                        </check>
+                    </true>
+                    <false>
+                        <div class="form-check col-3">
+                            <input class="form-check-input" type="checkbox" name="jobs[]" id="{{ @jobID }}" value="{{ @jobValue }}">
+                            <label class="form-check-label" for="{{ @jobID }}">{{ @jobValue }}</label>
+                        </div>
+                    </false>
+                </check>
                 <check if="{{ @ctr % 4 == 0}}">
                     <true>
                         </div>

@@ -30,3 +30,18 @@ function validEmail($email)
     //Validate the email using the built-in email filter
     return filter_var($email,FILTER_VALIDATE_EMAIL);
 }
+
+function validJob($job)
+{
+    $jobs = array(
+        "js" => "JavaScript",
+        "php" => "PHP",
+        "java" => "Java",
+        "py" => "Python",
+        "html" => "HTML",
+        "css" => "CSS",
+        "react" => "ReactJS",
+        "node" => "NodeJS"
+    );
+    return in_array($job,array_values($jobs));
+}
