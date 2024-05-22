@@ -202,6 +202,7 @@ class Controller
 
     function summary()
     {
+        $this->_f3->set('app', $this->_f3->get('SESSION.app'));
         $view = new Template();
         echo $view->render('views/summary.html');
     }

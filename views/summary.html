@@ -12,31 +12,31 @@
                 <table class="table table-light border">
                     <tbody>
                         <tr>
-                            <td>Name: {{ @SESSION.fname }} {{ @SESSION.lname }}</td>
+                            <td>Name: {{ @app->getFname }} {{ @app->getLname }}</td>
                         </tr>
                         <tr>
-                            <td>Email: {{ @SESSION.email }}</td>
+                            <td>Email: {{ @app->getEmail }}</td>
                         </tr>
                         <tr>
-                            <td>State: {{ @SESSION.state }}</td>
+                            <td>State: {{ @app->getState }}</td>
                         </tr>
                         <tr>
-                            <td>Phone: {{ @SESSION.phone }}</td>
+                            <td>Phone: {{ @app->getPhone }}</td>
                         </tr>
                         <tr>
-                            <td>GitHub link: {{ @SESSION.github }}</td>
+                            <td>GitHub link: {{ @app->getGithub }}</td>
                         </tr>
                         <tr>
-                            <td>Experience: {{ @SESSION.years }}</td>
+                            <td>Experience: {{ @app->getExperience }}</td>
                         </tr>
                         <tr>
-                            <td>Willing to relocate: {{ @SESSION.reloc }}</td>
+                            <td>Willing to relocate: {{ @app->getRelocate }}</td>
                         </tr>
                         <check if="{{ @SESSION.app instanceOf Applicant_SubscribedToLists }}">
                             <tr>
                                 <td>Mailing lists:
-                                    <repeat group="{{ @SESSION.jobs }}" value="{{ @job }}">{{ @job }}, </repeat>
-                                    <repeat group="{{ @SESSION.verticals }}" value="{{ @vertical }}">{{ @vertical }}, </repeat>
+                                    <repeat group="{{ @app->getSelectionJobs }}" value="{{ @job }}">{{ @job }}, </repeat>
+                                    <repeat group="{{ @app->getSelectionVerticals }}" value="{{ @vertical }}">{{ @vertical }}, </repeat>
                                 </td>
                             </tr>
                         </check>
@@ -50,7 +50,7 @@
         <div class="row justify-content-end m-4 p-3">
             <div class="col-6">
                 <h3>Summary</h3>
-                <p>{{ @SESSION.bio }}</p>
+                <p>{{ @app->getBio }}</p>
             </div>
         </div>
     </div>
