@@ -32,18 +32,27 @@ class Validator
         return filter_var($email,FILTER_VALIDATE_EMAIL);
     }
 
-    static function validJob($job)
+    static function validJobs($jobs)
     {
-        $jobs = array(
-            "js" => "JavaScript",
-            "php" => "PHP",
-            "java" => "Java",
-            "py" => "Python",
-            "html" => "HTML",
-            "css" => "CSS",
-            "react" => "ReactJS",
-            "node" => "NodeJS"
-        );
-        return in_array($job,array_values($jobs));
+        $validJobs = DataLayer::getValidJobs();
+        $invalidJobs = array();
+        foreach ($jobs as $job) {
+            if (!in_array($job, array_values($validJobs))) {
+                $invalidJobs[] = $job;
+            }
+        }
+        return $invalidJobs;
+    }
+
+    static function validVerticals($verticals)
+    {
+        $validVerticals = DataLayer::getValidVerticals();
+        $invalidVerticals = array();
+        foreach ($verticals as $vertical) {
+            if (!in_array($vertical, array_values($validVerticals))) {
+                $invalidVerticals[] = $vertical;
+            }
+        }
+        return $invalidVerticals;
     }
 }

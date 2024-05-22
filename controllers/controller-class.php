@@ -18,14 +18,7 @@ class Controller
     {
         //Set states array for dropdown option
         $this->_f3->set('SESSION.default_state', "Washington");
-        $this->_f3->set('SESSION.states', array("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
-            "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
-            "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-            "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
-            "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
-            "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
-            "Utah", "Vermont", "Virginia", "West Virginia", "Wisconsin", "Wyoming"
-        ));
+        $this->_f3->set('SESSION.states', DataLayer::getStates());
 
         //If the form was submitted...
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -141,58 +134,41 @@ class Controller
 
     function mail()
     {
-        $jobs = array(
-            "js" => "JavaScript",
-            "php" => "PHP",
-            "java" => "Java",
-            "py" => "Python",
-            "html" => "HTML",
-            "css" => "CSS",
-            "react" => "ReactJS",
-            "node" => "NodeJS"
-        );
-        $this->_f3->set('SESSION.jobs', $jobs);
-        $this->_f3->set('SESSION.verticals',array(
-            "saas" => "SaaS",
-            "health" => "Health Tech",
-            "ag" => "Ag Tech",
-            "hr" => "HR Tech",
-            "indus" => "Industry Tech",
-            "cyber" => "Cybersecurity"
-        ));
+        //Get valid data and add it to session
+        $validJobs = DataLayer::getValidJobs();
+        $validVerticals = DataLayer::getValidVerticals();
+        $this->_f3->set('SESSION.jobs', $validJobs);
+        $this->_f3->set('SESSION.verticals', $validVerticals);
+
         //If the form was submitted...
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //Get data
+            //Get user data
             $userJobs = $_POST['jobs'];
-            $verticals = $_POST['verticals'];
+            $userVerticals = $_POST['verticals'];
 
-            $jobVals = array_values($jobs);
+            //Validate jobs and verticals, but only if they were selected
+            $invalidJobs = (isset($userJobs)) ? Validator::validJobs($userJobs) : null;
+            $invalidVerticals = (isset($userVerticals)) ? Validator::validVerticals($userVerticals) : null;
 
-            //Validate the data, but only if jobs were selected
-            $invalidJobs = array();
-            if($userJobs != null) {
-                $userJobVals = array_values($userJobs);
-                for ($i = 0; $i < sizeof($jobVals); $i++) {
-                    //The bug is that the user only selects x amount of jobs, but there are y total,
-                    //TODO: So the index gets out of sync. Find a way to validate each job alongside each selected job
-                    if(!Validator::validJob($userJobVals[$i])) {
-                        $invalidJobs[] = $jobVals[$i];
-                    }
-                }
-            }
             //Clear current errors
             $this->_f3->set('SESSION.errors',null);
-            //If there are no errors...
-            if(empty($invalidJobs)) {
+            //If there are no job/vertical errors...
+            if(empty($invalidJobs) && empty($invalidVerticals)) {
                 //Add data to the session
-                $this->_f3->set('SESSION.jobs',$userJobs);
-                $this->_f3->set('SESSION.verticals',$verticals);
+                $this->_f3->get('SESSION.app')->setSelectedJobs($userJobs);
+                $this->_f3->get('SESSION.app')->setSelectedVerticalss($userVerticals);
 
-                //(If the data is valid) Reroute to the next page
+                //(Reroute to the next page
                 $this->_f3->reroute('summary');
+
+            //If there are errors...
             } else {
+                //=====Note that this data is only stored to the session for the purpose of sticky forms and
+                // displaying invalid data.
+                //TODO:Templating and errors
                 $this->_f3->set('SESSION.userJobs',$userJobs);
-                $this->_f3->set('SESSION.errors',$invalidJobs);
+                $this->_f3->set('SESSION.userVerticals',$userVerticals);
+                $this->_f3->set('SESSION.errors',array($invalidJobs,$invalidVerticals));
                 echo var_dump($invalidJobs);
             }
         }
@@ -202,7 +178,10 @@ class Controller
 
     function summary()
     {
+        // Save applicant to F3 hive for templating, then destroy the session to avoid unwanted website behavior (e.g.
+        // forms incorrectly appearing valid/invalid on second viewing if reapplying.)
         $this->_f3->set('app', $this->_f3->get('SESSION.app'));
+        session_destroy();
         $view = new Template();
         echo $view->render('views/summary.html');
     }
