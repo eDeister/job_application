@@ -32,7 +32,7 @@
                         <tr>
                             <td>Willing to relocate: {{ @SESSION.reloc }}</td>
                         </tr>
-                        <check if="{{ isset(@SESSION.singed-up) }}">
+                        <check if="{{ @SESSION.app instanceOf Applicant_SubscribedToLists }}">
                             <tr>
                                 <td>Mailing lists:
                                     <repeat group="{{ @SESSION.jobs }}" value="{{ @job }}">{{ @job }}, </repeat>

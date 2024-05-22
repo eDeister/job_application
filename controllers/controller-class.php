@@ -36,9 +36,6 @@ class Controller
             $state = $_POST['state'];
             $phone = $_POST['phone'];
 
-            //Allows the website to track mailing list preference between HTTP requests
-            $this->_f3->set('SESSION.signed-up', (isset($_POST['signed-up'])) ? 'true':'false');
-
             //Validate data
             $validName = Validator::validName($fname) && Validator::validName($lname);
             $validEmail = Validator::validEmail($email);
@@ -46,12 +43,15 @@ class Controller
 
             //If data valid...
             if ($validName && $validEmail && $validPhone) {
-                //Add data to the session
-                $this->_f3->set('SESSION.fname',$fname);
-                $this->_f3->set('SESSION.lname',$lname);
-                $this->_f3->set('SESSION.email',$email);
-                $this->_f3->set('SESSION.state',$state);
-                $this->_f3->set('SESSION.phone',$phone);
+                //Instantiate appropriate applicant object based on mailing list preference
+                if (isset($_POST['signed-up'])) {
+                    $app = new Applicant_SubscribedToLists($fname,$lname,$email,$state,$phone);
+                } else {
+                    $app = new Applicant($fname,$lname,$email,$state,$phone);
+                }
+
+                //Add applicant  to the session
+                $this->_f3->set('SESSION.app', $app);
 
                 //Reroute to the next form page
                 $this->_f3->reroute('experience');
@@ -106,12 +106,20 @@ class Controller
             //If data is valid...
             if ($validGithub && $validExperience) {
                 //Add data to the session
-                $this->_f3->set('SESSION.bio', $bio);
-                $this->_f3->set('SESSION.github', $github);
-                $this->_f3->set('SESSION.years', $exp);
-                $this->_f3->set('SESSION.reloc', $reloc);
-                //Reroute to the next page
-                $this->_f3->reroute('mail');
+                $app = $this->_f3->get('SESSION.app');
+                $app->setBio($bio);
+                $app->setGithub($github);
+                $app->setExperience($exp);
+                $app->setRelocate($reloc);
+                $this->_f3->set('SESSION.app', $app);
+
+                //Reroute to the next page based on applicant mailing list preference
+                if($app instanceof Applicant) {
+                    $this->_f3->reroute('summary');
+                } else {
+                    $this->_f3->reroute('mail');
+                }
+
                 //Otherwise
             } else {
                 $this->_f3->set('SESSION.errors',null);
