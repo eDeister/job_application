@@ -36,6 +36,9 @@ class Controller
             $state = $_POST['state'];
             $phone = $_POST['phone'];
 
+            //Allows the website to track mailing list preference between HTTP requests
+            $this->_f3->set('SESSION.signed-up', (isset($_POST['signed-up'])) ? 'true':'false');
+
             //Validate data
             $validName = Validator::validName($fname) && Validator::validName($lname);
             $validEmail = Validator::validEmail($email);

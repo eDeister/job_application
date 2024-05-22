@@ -77,7 +77,6 @@
                         <div class="col">
                             <label for="state" class="form-label"><strong>State</strong></label>
                             <select class="form-select" name="state" id="state">
-                                <!--Using templating even though we haven't covered it yet, just to save time-->
                                 <option selected value="{{ @SESSION.default_state }}">{{ @SESSION.default_state }}</option>
                                 <repeat group="{{ @SESSION.states }}" value="{{ @state }}">
                                     <option value="{{ @state }}">{{ @state }}</option>
@@ -102,6 +101,14 @@
                                     <input type="text" class="form-control" name="phone" id="phone" placeholder="222-333-4444" required>
                                 </false>
                             </check>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p><b>Mailing Lists</b></p>
+                            <label for="singed-up">
+                                <input type="checkbox" name="signed-up" id="singed-up" value="true"> Sign me up for job openings mailing list!
+                            </label>
                         </div>
                     </div>
                 </div>

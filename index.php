@@ -31,8 +31,9 @@ $f3->route('GET|POST /experience', function() {
     $GLOBALS["con"]->experience();
 });
 
-$f3->route('GET|POST /mail', function() {
-    $GLOBALS["con"]->mail();
+$f3->route('GET|POST /mail', function($f3) {
+    ($f3->get('SESSION.signed-up') == 'true') ?
+        $GLOBALS["con"]->mail() : $f3->reroute('summary');
 });
 
 $f3->route('GET /summary', function() {

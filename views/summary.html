@@ -32,12 +32,14 @@
                         <tr>
                             <td>Willing to relocate: {{ @SESSION.reloc }}</td>
                         </tr>
-                        <tr>
-                            <td>Mailing lists:
-                                <repeat group="{{ @SESSION.jobs }}" value="{{ @job }}">{{ @job }}, </repeat>
-                                <repeat group="{{ @SESSION.verticals }}" value="{{ @vertical }}">{{ @vertical }}, </repeat>
-                            </td>
-                        </tr>
+                        <check if="{{ isset(@SESSION.singed-up) }}">
+                            <tr>
+                                <td>Mailing lists:
+                                    <repeat group="{{ @SESSION.jobs }}" value="{{ @job }}">{{ @job }}, </repeat>
+                                    <repeat group="{{ @SESSION.verticals }}" value="{{ @vertical }}">{{ @vertical }}, </repeat>
+                                </td>
+                            </tr>
+                        </check>
                     </tbody>
                 </table>
             </div>
