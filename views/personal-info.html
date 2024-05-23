@@ -20,11 +20,11 @@
                                 <true>
                                     <check if="{{ !in_array('name',@SESSION.errors) }}">
                                         <true>
-                                            <input type="text" class="form-control is-valid" name="fname" id="fname" placeholder="Sarah" required>
+                                            <input type="text" class="form-control is-valid" name="fname" id="fname" placeholder="Sarah">
                                         </true>
                                         <false>
 
-                                            <input type="text" class="form-control is-invalid" name="fname" id="fname" placeholder="Sarah" required>
+                                            <input type="text" class="form-control is-invalid" name="fname" id="fname" placeholder="Sarah">
                                             <div class="invalid-feedback">Please enter a valid name.</div>
                                         </false>
                                     </check>
@@ -40,16 +40,16 @@
                                 <true>
                                     <check if="{{ !in_array('name',@SESSION.errors) }}">
                                         <true>
-                                            <input type="text" class="form-control is-valid" name="lname" id="lname" placeholder="Smith" required>
+                                            <input type="text" class="form-control is-valid" name="lname" id="lname" placeholder="Smith">
                                         </true>
                                         <false>
-                                            <input type="text" class="form-control is-invalid" name="lname" id="lname" placeholder="Smith" required>
+                                            <input type="text" class="form-control is-invalid" name="lname" id="lname" placeholder="Smith">
                                             <div class="invalid-feedback">Please enter a valid name.</div>
                                         </false>
                                     </check>
                                 </true>
                                 <false>
-                                    <input type="text" class="form-control" name="lname" id="lname" placeholder="Smith" required>
+                                    <input type="text" class="form-control" name="lname" id="lname" placeholder="Smith">
                                 </false>
                             </check>
                         </div>
@@ -60,16 +60,16 @@
                             <true>
                                 <check if="{{ !in_array('email',@SESSION.errors) }}">
                                     <true>
-                                        <input type="email" class="form-control ms-2 is-valid" name="email" id="email" placeholder="my_email@gmail.com" required>
+                                        <input type="email" class="form-control ms-2 is-valid" name="email" id="email" placeholder="my_email@gmail.com">
                                     </true>
                                     <false>
-                                        <input type="email" class="form-control ms-2 is-invalid" name="email" id="email" placeholder="my_email@gmail.com" required>
+                                        <input type="email" class="form-control ms-2 is-invalid" name="email" id="email" placeholder="my_email@gmail.com">
                                         <div class="invalid-feedback">Please enter a valid email.</div>
                                     </false>
                                 </check>
                             </true>
                             <false>
-                                <input type="email" class="form-control ms-2" name="email" id="email" placeholder="my_email@gmail.com" required>
+                                <input type="email" class="form-control ms-2" name="email" id="email" placeholder="my_email@gmail.com">
                             </false>
                         </check>
                     </div>
@@ -89,16 +89,16 @@
                                 <true>
                                     <check if="{{ !in_array('phone',@SESSION.errors) }}">
                                         <true>
-                                            <input type="text" class="form-control is-valid" name="phone" id="phone" placeholder="222-333-4444" required>
+                                            <input type="text" class="form-control is-valid" name="phone" id="phone" placeholder="222-333-4444">
                                         </true>
                                         <false>
-                                            <input type="text" class="form-control is-invalid" name="phone" id="phone" placeholder="222-333-4444" required>
+                                            <input type="text" class="form-control is-invalid" name="phone" id="phone" placeholder="222-333-4444">
                                             <div class="invalid-feedback">Please enter a valid phone number.</div>
                                         </false>
                                     </check>
                                 </true>
                                 <false>
-                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="222-333-4444" required>
+                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="222-333-4444">
                                 </false>
                             </check>
                         </div>

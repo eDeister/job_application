@@ -1,19 +1,49 @@
 <?php
+
+/**
+ * A class with functions which contain logic and decisions for routes to be called in the index page.
+ *
+ * A class with functions which contain logic and decisions for routes to be called in the index page. Includes
+ * functions for a home page, the personal info page, the experience page, the mailing list page, and the summary page.
+ * @author Ethan Deister
+ */
 class Controller
 {
     private $_f3;
 
+    /**
+     * Instantiates the controller, requires a Fat-Free object
+     * @param Base $f3 The F3 BASE object
+     */
     function __construct($f3)
     {
         $this->_f3 = $f3;
     }
 
+    /**
+     * Renders a page for the home route. Starts a new session if the applicant has already applied once.
+     * @return void
+     * @throws Exception
+     */
     function home()
     {
+        //If the applicant has already submitted one application, allow them to resubmit another
+        //by starting a new session.
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        echo var_dump($_SESSION);
         $view = new Template();
         echo $view->render('views/home.html');
     }
 
+    /**
+     * Renders a page for the info route. Calls a function from the data layer to get the list of all 50 states.
+     * If form posted to itself, it validates the data and (if valid) adds it to a new Applicant object, which
+     * gets added to the session. Then the page reroutes to experience.
+     * @return void
+     * @throws Exception
+     */
     function info()
     {
         //Set states array for dropdown option
@@ -70,6 +100,13 @@ class Controller
         echo $view->render('views/personal-info.html');
     }
 
+    /**
+     * Renders a page for the experience route. Sets session data for templating. If the form was posted to itself,
+     * the data is validated and added to the previously defined Applicant object. Otherwise, errors are set. If data
+     * was valid, it then reroutes to the next page (mailing list if signed up, otherwise the summary).
+     * @return void
+     * @throws Exception
+     */
     function experience()
     {
         //Set session data
@@ -107,10 +144,10 @@ class Controller
                 $this->_f3->set('SESSION.app', $app);
 
                 //Reroute to the next page based on applicant mailing list preference
-                if($app instanceof Applicant) {
-                    $this->_f3->reroute('summary');
-                } else {
+                if($app instanceof Applicant_SubscribedToLists) {
                     $this->_f3->reroute('mail');
+                } else {
+                    $this->_f3->reroute('summary');
                 }
 
                 //Otherwise
@@ -132,6 +169,13 @@ class Controller
         echo $view->render('views/experience.html');
     }
 
+    /**
+     * Renders a page for the mailing list route. Calls data layer functions to get a list of valid jobs and
+     * verticals. If the form was submitted to itself, the data is validated and added to the Applicant object and
+     * the page reroutes to the summary. Otherwise, errors are set.
+     * @return void
+     * @throws Exception
+     */
     function mail()
     {
         //Get valid data and add it to session
@@ -155,34 +199,37 @@ class Controller
             //If there are no job/vertical errors...
             if(empty($invalidJobs) && empty($invalidVerticals)) {
                 //Add data to the session
-                $this->_f3->get('SESSION.app')->setSelectedJobs($userJobs);
-                $this->_f3->get('SESSION.app')->setSelectedVerticalss($userVerticals);
+                $this->_f3->get('SESSION.app')->setSelectionJobs($userJobs);
+                $this->_f3->get('SESSION.app')->setSelectionVerticals($userVerticals);
 
                 //(Reroute to the next page
                 $this->_f3->reroute('summary');
 
             //If there are errors...
             } else {
-                //=====Note that this data is only stored to the session for the purpose of sticky forms and
-                // displaying invalid data.
-                //TODO:Templating and errors
-                $this->_f3->set('SESSION.userJobs',$userJobs);
-                $this->_f3->set('SESSION.userVerticals',$userVerticals);
-                $this->_f3->set('SESSION.errors',array($invalidJobs,$invalidVerticals));
-                echo var_dump($invalidJobs);
+                //Set appropriate session variables
+                $this->_f3->set('SESSION.errors',null);
+                $this->_f3->set('SESSION.errors["jobs"]',$invalidJobs);
+                $this->_f3->set('SESSION.errors["verticals"]',$invalidVerticals);
             }
         }
         $view = new Template();
         echo $view->render('views/mailing-list.html');
     }
 
+    /**
+     * Renders a page for the summary route. Sets a hive variable for conciseness. Kills the session now that the user
+     * has successfully applied.
+     * @return void
+     * @throws Exception
+     */
     function summary()
     {
         // Save applicant to F3 hive for templating, then destroy the session to avoid unwanted website behavior (e.g.
         // forms incorrectly appearing valid/invalid on second viewing if reapplying.)
         $this->_f3->set('app', $this->_f3->get('SESSION.app'));
-        session_destroy();
         $view = new Template();
         echo $view->render('views/summary.html');
+        session_destroy();
     }
 }

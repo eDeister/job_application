@@ -7,52 +7,56 @@
 <include href="views/header.html"></include>
     <!--Main page content-->
     <div class="container-fluid bg-light">
-        <div class="row m-3 p-4">
-            <div class="col-6">
-                <table class="table table-light border">
-                    <tbody>
-                        <tr>
-                            <td>Name: {{ @app->getFname }} {{ @app->getLname }}</td>
-                        </tr>
-                        <tr>
-                            <td>Email: {{ @app->getEmail }}</td>
-                        </tr>
-                        <tr>
-                            <td>State: {{ @app->getState }}</td>
-                        </tr>
-                        <tr>
-                            <td>Phone: {{ @app->getPhone }}</td>
-                        </tr>
-                        <tr>
-                            <td>GitHub link: {{ @app->getGithub }}</td>
-                        </tr>
-                        <tr>
-                            <td>Experience: {{ @app->getExperience }}</td>
-                        </tr>
-                        <tr>
-                            <td>Willing to relocate: {{ @app->getRelocate }}</td>
-                        </tr>
-                        <check if="{{ @SESSION.app instanceOf Applicant_SubscribedToLists }}">
+        <check if="{{ !empty(@app) }}">
+            <true>
+                <div class="row m-3 p-4">
+                    <div class="col-6">
+                        <table class="table table-light border">
+                            <tbody>
                             <tr>
-                                <td>Mailing lists:
-                                    <repeat group="{{ @app->getSelectionJobs }}" value="{{ @job }}">{{ @job }}, </repeat>
-                                    <repeat group="{{ @app->getSelectionVerticals }}" value="{{ @vertical }}">{{ @vertical }}, </repeat>
-                                </td>
+                                <td>Name: {{ @app->getFname() }} {{ @app->getLname() }}</td>
                             </tr>
-                        </check>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-6 text-center">
-                <img src="images/profile.png" alt="Profile art" class="image-fluid w-50">
-            </div>
-        </div>
-        <div class="row justify-content-end m-4 p-3">
-            <div class="col-6">
-                <h3>Summary</h3>
-                <p>{{ @app->getBio }}</p>
-            </div>
-        </div>
+                            <tr>
+                                <td>Email: {{ @app->getEmail() }}</td>
+                            </tr>
+                            <tr>
+                                <td>State: {{ @app->getState() }}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone: {{ @app->getPhone() }}</td>
+                            </tr>
+                            <tr>
+                                <td>GitHub link: {{ @app->getGithub() }}</td>
+                            </tr>
+                            <tr>
+                                <td>Experience: {{ @app->getExperience() }}</td>
+                            </tr>
+                            <tr>
+                                <td>Willing to relocate: {{ @app->getRelocate() }}</td>
+                            </tr>
+                            <check if="{{ @SESSION.app instanceOf Applicant_SubscribedToLists }}">
+                                <tr>
+                                    <td>Mailing lists:
+                                        <repeat group="{{ @app->getSelectionJobs() }}" value="{{ @job }}">{{ @job }}, </repeat>
+                                        <repeat group="{{ @app->getSelectionVerticals() }}" value="{{ @vertical }}">{{ @vertical }}, </repeat>
+                                    </td>
+                                </tr>
+                            </check>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-6 text-center">
+                        <img src="images/profile.png" alt="Profile art" class="image-fluid w-50">
+                    </div>
+                </div>
+                <div class="row justify-content-end m-4 p-3">
+                    <div class="col-6">
+                        <h3>Summary</h3>
+                        <p>{{ @app->getBio() }}</p>
+                    </div>
+                </div>
+            </true>
+        </check>
     </div>
 </body>
 </html>
